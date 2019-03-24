@@ -1,8 +1,35 @@
 import React, { Component } from 'react';
 
 class CoursesPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      course: {
+        title: ''
+      }
+    };
+  }
+
+  handleChange = (evt) => {
+
+  }
+
   render() {
-    return <h2>Courses</h2>;
+    const { course } = this.state;
+
+    return (
+      <form>
+        <h2>Courses</h2>
+        <h3>Add Course</h3>
+        <input
+          type="text"
+          onChange={this.handleChange}
+          value={course.title}
+        />
+        <input type="submit" value="Save" />
+      </form>
+    );
   }
 }
 
