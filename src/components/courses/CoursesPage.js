@@ -4,10 +4,15 @@ import { connect } from 'react-redux';
 import * as courseActions from '../../redux/actions/courseActions';
 import * as authorActions from '../../redux/actions/authorActions';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 import CourseList from './CourseList';
 
 class CoursesPage extends Component {
+  state = {
+    redirectToAddCoursePage: false
+  };
+
   componentDidMount() {
     const { courses, authors, actions } = this.props;
 
@@ -26,10 +31,22 @@ class CoursesPage extends Component {
 
   render() {
     const { courses } = this.props;
+    const { redirectToAddCoursePage } = this.state;
 
     return (
       <>
+        { redirectToAddCoursePage && <Redirect to='/course' /> }
+
         <h2>Courses</h2>
+
+        <button
+          style={{ marginBottom: 20 }}
+          className="btn btn-primary add-course"
+          onClick={() => this.setState({ redirectToAddCoursePage: true })}
+        >
+          Add Course
+        </button>
+
         <CourseList courses={courses} />
       </>
     );
