@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadCourses } from '../../redux/actions/courseActions';
+import { loadCourses, saveCourse } from '../../redux/actions/courseActions';
 import { loadAuthors } from '../../redux/actions/authorActions';
 import { newCourse } from '../../../tools/mockData';
 
@@ -11,6 +11,7 @@ const ManageCoursePage = ({
   courses,
   authors,
   loadCourses,
+  saveCourse,
   loadAuthors,
   ...props
 }) => {
@@ -36,15 +37,19 @@ const ManageCoursePage = ({
         [name]: name === 'authorId' ? parseInt(value, 10) : value
       }
     });
-  }
+  };
+
+  const handleSave = (evt) => {
+    evt.preventDefault();
+    saveCourse(course);
+  };
 
   return (
     <CourseForm
       course={course}
       authors={authors}
-      onSave={() => alert('on save booyeah!')}
+      onSave={handleSave}
       onChange={handleChange}
-      saving={false}
       errors={errors}
     />
   );
@@ -55,6 +60,7 @@ ManageCoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired
 };
 
@@ -66,6 +72,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = { loadCourses, loadAuthors };
+const mapDispatchToProps = { loadCourses, saveCourse, loadAuthors };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
