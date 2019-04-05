@@ -2,16 +2,20 @@ import * as types from './actionTypes';
 import * as courseAPI from '../../api/courseApi';
 import { beginApiCall, apiCallError } from './apiStatusActions';
 
-export const loadCoursesSuccess = (courses) => {
+export const loadCoursesSuccess = courses => {
   return { type: types.LOAD_COURSES_SUCCESS, courses };
 }
 
-export const createCourseSuccess = (course) => {
+export const createCourseSuccess = course => {
   return { type: types.CREATE_COURSE_SUCCESS, course };
 }
 
-export const updateCourseSuccess = (course) => {
+export const updateCourseSuccess = course => {
   return { type: types.UPDATE_COURSE_SUCCESS, course };
+}
+
+export const deleteCourseOptimistic = course => {
+  return { type: types.DELETE_COURSE_OPTIMISTIC, course }
 }
 
 export const loadCourses = () => dispatch => {
@@ -39,4 +43,9 @@ export const saveCourse = course => (dispatch, getState) => {
       dispatch(apiCallError());
       throw error;
     });
+}
+
+export const deleteCourse = course => dispatch => {
+  dispatch(deleteCourseOptimistic(course));
+  return courseAPI.deleteCourse(course.id);
 }
