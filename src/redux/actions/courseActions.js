@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import * as courseAPI from '../../api/courseApi';
+import { beginApiCall } from './apiStatusActions';
 
 export const loadCoursesSuccess = (courses) => {
   return { type: types.LOAD_COURSES_SUCCESS, courses };
@@ -14,6 +15,7 @@ export const updateCourseSuccess = (course) => {
 }
 
 export const loadCourses = () => dispatch => {
+  dispatch(beginApiCall());
   return courseAPI
     .getCourses()
     .then(courses => dispatch(loadCoursesSuccess(courses)))
@@ -22,6 +24,7 @@ export const loadCourses = () => dispatch => {
 
 //eslint-disable-next-line no-unused-vars
 export const saveCourse = course => (dispatch, getState) => {
+  dispatch(beginApiCall());
   return courseAPI
     .saveCourse(course)
     .then(savedCourse => {
