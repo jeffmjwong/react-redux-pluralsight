@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../common/Spinner';
 import CourseForm from './CourseForm';
 
-const ManageCoursePage = ({
+export const ManageCoursePage = ({
   courses,
   authors,
   loadCourses,
