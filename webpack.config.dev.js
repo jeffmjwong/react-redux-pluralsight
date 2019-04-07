@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = 'development';
 
 module.exports = {
+  mode: 'development',
   target: 'web',
   devtool: 'cheap-module-source-map',
   entry: './src/index',
